@@ -7,7 +7,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
-
+@Table(name = "room")
 public class Room extends AuditModel {
 
     private static final long serialVersionUID = 1L;

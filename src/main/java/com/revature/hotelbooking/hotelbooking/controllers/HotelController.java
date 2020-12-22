@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import org.springframework.data.domain.Page;
@@ -20,22 +21,23 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 
 @RestController
+@RequestMapping("/hotel")
 public class HotelController {
     
     @Autowired
     private HotelRepository hotelRepo;
 
-    @GetMapping("/hotels")
+    @GetMapping("")
     public Page<Hotel> getHotels(Pageable pageable) {
         return hotelRepo.findAll(pageable);
     }
 
-    @PostMapping("/hotels")
+    @PostMapping("")
     public Hotel createHotel(@Valid @RequestBody Hotel hotelRequest) {
         return hotelRepo.save(hotelRequest);
     }
 
-    @PutMapping("/hotels/{id}")
+    @PutMapping("/{id}")
     public Hotel updateHotel(@PathVariable Long id, @Valid @RequestBody Hotel hotelRequest) {
         return hotelRepo.findById(id).map(hotel -> {
             
@@ -56,7 +58,7 @@ public class HotelController {
         }).orElseThrow(() -> new ResourceNotFoundException("Hotel not found with id " + id));
     }
 
-    @DeleteMapping("/hotels/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteHotel(@PathVariable Long id) {
         return hotelRepo.findById(id).map(hotel -> {
             hotelRepo.delete(hotel);

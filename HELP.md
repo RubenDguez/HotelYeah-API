@@ -1,7 +1,7 @@
 # HotelBooking API
 
 ## Endpoints:
-- ```http://3.139.235.28:8080/hotelbooking-1.0.0/hotels```
+- ```http://3.139.235.28:8080/hotelbooking-1.0.0/hotel```
     
     - GET
     - POST

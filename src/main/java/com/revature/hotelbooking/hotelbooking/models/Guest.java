@@ -5,6 +5,7 @@ import javax.validation.constraints.NotBlank;
 
 
 @Entity
+@Table(name = "guest")
 public class Guest extends AuditModel {
 
     private static final long serialVersionUID = 1L;

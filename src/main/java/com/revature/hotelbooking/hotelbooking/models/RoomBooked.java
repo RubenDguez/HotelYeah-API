@@ -7,6 +7,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
+@Table(name = "room_booked")
 public class RoomBooked extends AuditModel {
 
     private static final long serialVersionUID = 1L;
