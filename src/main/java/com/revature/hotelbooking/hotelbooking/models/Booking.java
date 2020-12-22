@@ -2,7 +2,8 @@ package com.revature.hotelbooking.hotelbooking.models;
 
 import java.util.Date;
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -18,13 +19,13 @@ public class Booking extends AuditModel {
     @SequenceGenerator(name = "booking_generator", sequenceName = "booking_generator", initialValue = 1000)
     private Long id;
     
-    @NotBlank
+    @NotNull
     private Date checkInDate;       // check in date
     
-    @NotBlank
+    @NotNull
     private Date checkOutDate;      // check out date
     
-    @NotBlank
+    @NotNull
     private short roomCount;        // refers to the quantity of rooms being booking 
 
     // Relation Many to One on hotels table

@@ -1,7 +1,7 @@
 package com.revature.hotelbooking.hotelbooking.models;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 
 @Entity
@@ -15,31 +15,31 @@ public class Guest extends AuditModel {
     @SequenceGenerator(name = "guests_generator", sequenceName = "guests_generator", initialValue = 1000)
     private Long id;
 
-    @NotBlank
+    @NotNull
     private String firstName;
     
-    @NotBlank
+    @NotNull
     private String lastName;
     
-    @NotBlank
+    @NotNull
     private String address;
     private String address2;
     
-    @NotBlank
+    @NotNull
     private String city;
     
-    @NotBlank
+    @NotNull
     private String state;
     
-    @NotBlank
+    @NotNull
     private int zipCode;
     
-    @NotBlank
+    @NotNull
     private String country;
 
     private String homePhoneNumber;
     
-    @NotBlank
+    @NotNull
     private String cellPhoneNumber;
     private String emailAddress;
 

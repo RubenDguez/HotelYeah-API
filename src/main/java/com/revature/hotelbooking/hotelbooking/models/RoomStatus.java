@@ -5,7 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "room_status")
@@ -18,10 +18,10 @@ public class RoomStatus extends AuditModel {
     @SequenceGenerator(name = "room_status_generator", sequenceName = "room_status_generator", initialValue = 1000)
     private Long id;
 
-    @NotBlank
+    @NotNull
     private String code;
 
-    @NotBlank
+    @NotNull
     private String description;
 
     public RoomStatus() {

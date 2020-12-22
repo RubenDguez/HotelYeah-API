@@ -1,7 +1,8 @@
 package com.revature.hotelbooking.hotelbooking.models;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -17,13 +18,13 @@ public class Room extends AuditModel {
     @SequenceGenerator(name = "room_generator", sequenceName = "room_generator", initialValue = 1000)
     private Long id;
 
-    @NotBlank
+    @NotNull
     private short floor;
 
-    @NotBlank
+    @NotNull
     private short roomNumber;
 
-    @NotBlank
+    @NotNull
     private String description;
 
     // Relation Many to One on Hotel
