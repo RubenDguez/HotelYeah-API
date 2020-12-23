@@ -12,10 +12,16 @@ import javax.validation.Valid;
 import com.revature.hotelbooking.hotelbooking.exceptions.ResourceNotFoundException;
 import com.revature.hotelbooking.hotelbooking.models.Booking;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,6 +39,11 @@ public class BookingController {
     @Autowired
     private GuestRepository guestRepo;
 
+    @GetMapping("")
+    public Page<Booking> getAllBookings(Pageable pageable) {
+        return bookingRepo.findAll(pageable);
+    }
+
     @GetMapping("/{bookingId}")
     public Optional<Booking> getBookingById(@PathVariable Long bookingId) {
         return bookingRepo.findById(bookingId);
@@ -41,6 +52,11 @@ public class BookingController {
     @GetMapping("/hotel/{hotelId}")
     public List<Booking> getBookingByHotel(@PathVariable Long hotelId) {
         return bookingRepo.findByHotelId(hotelId);
+    }
+
+    @GetMapping("/guest/{guestId}")
+    public List<Booking> getBookingByGuest(@PathVariable Long guestId) {
+        return bookingRepo.findByGuestId(guestId);
     }
 
     @PostMapping("/{hotelId}/{guestId}")
@@ -55,5 +71,25 @@ public class BookingController {
             }).orElseThrow(() -> new ResourceNotFoundException("Guest not found by id " + guestId));
         }).orElseThrow(() -> new ResourceNotFoundException("Hotel not found by id " + hotelId));
     }
+
+    @PutMapping("/{bookingId}")
+    public Booking updateBooking(@PathVariable Long bookingId, @Valid @RequestBody Booking bookingRequest) {
+        return bookingRepo.findById(bookingId).map(booking -> {
+            booking.setCheckInDate(bookingRequest.getCheckInDate());
+            booking.setCheckOutDate(bookingRequest.getCheckOutDate());
+            booking.setRoomCount(bookingRequest.getRoomCount());
+            return bookingRepo.save(booking);
+        }).orElseThrow(() -> new ResourceNotFoundException("Booking not found by id " + bookingId));
+    }
+
+    @DeleteMapping("/{bookingId}")
+    public ResponseEntity<?> deleteBooking(@PathVariable Long bookingId) {
+        return bookingRepo.findById(bookingId).map(booking -> {
+            bookingRepo.delete(booking);
+            return ResponseEntity.ok().build();
+        }).orElseThrow(() -> new ResourceNotFoundException("Booking not found with id " + bookingId));
+    }
+
+
     
 }

@@ -9,6 +9,7 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import org.springframework.data.annotation.CreatedDate;
@@ -25,11 +26,13 @@ public abstract class AuditModel implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at", nullable = false, updatable = false)
     @CreatedDate
+    @JsonIgnore
     private Date createdAt;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated_at", nullable = false, updatable = false)
     @LastModifiedDate
+    @JsonIgnore
     private Date updatedAt;
 
     public AuditModel() {
