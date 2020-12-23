@@ -86,4 +86,21 @@
         The body for PUT request is the same as POST request
         ```
         - DELETE ```/{roomtype id}```
-        
+---
+- ```http://3.139.235.28:8080/hotelbooking-1.0.0/booking```
+    - GET: Gets all bookings available in database
+    - GET ```/{booking id}```
+    - GET ```/hotel/{hotel id}``` Gets all bookings for a particular hotel
+    - GET ```/guest/{guest id}``` Gets all bookings for a particular guest
+    - POST ```/{hotel id}/{guest id}``` Creates a booking; Must indicate hotel id and user id in URL. It also needs body request
+        - Example body:
+        ```
+       {
+            "checkInDate":"2021-01-05", 
+            "checkOutDate":"2021-01-15", 
+            "roomCount":"1"
+        } 
+        ```
+    - PUT ```/{booking id}``` Edit a particular booking. Needs same body as POST request with edited fields.
+    - DELETE ```/{booking id}```
+---
