@@ -23,31 +23,23 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 
 @RestController
+@CrossOrigin("http://localhost:3000")
 @RequestMapping("/hotel")
-@CrossOrigin(
-    allowCredentials = "true",
-    origins = "http://localhost:3000", 
-    allowedHeaders = {"Content-Type", "x-requested-with", "origin", "Access-Control-Allow-Origin"}, 
-    methods = {RequestMethod.GET,RequestMethod.POST,RequestMethod.DELETE,RequestMethod.PUT}
-)
 public class HotelController {
     
     @Autowired
     private HotelRepository hotelRepo;
 
-    @CrossOrigin
     @GetMapping("")
     public Page<Hotel> getHotels(Pageable pageable) {
         return hotelRepo.findAll(pageable);
     }
 
-    @CrossOrigin
     @PostMapping("")
     public Hotel createHotel(@Valid @RequestBody Hotel hotelRequest) {
         return hotelRepo.save(hotelRequest);
     }
 
-    @CrossOrigin
     @PutMapping("/{id}")
     public Hotel updateHotel(@PathVariable Long id, @Valid @RequestBody Hotel hotelRequest) {
         return hotelRepo.findById(id).map(hotel -> {
@@ -69,7 +61,6 @@ public class HotelController {
         }).orElseThrow(() -> new ResourceNotFoundException("Hotel not found with id " + id));
     }
 
-    @CrossOrigin
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteHotel(@PathVariable Long id) {
         return hotelRepo.findById(id).map(hotel -> {
