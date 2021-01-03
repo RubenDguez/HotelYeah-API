@@ -24,12 +24,6 @@ import org.springframework.http.ResponseEntity;
 
 @RestController
 @RequestMapping("/hotel")
-@CrossOrigin(
-    allowCredentials = "true",
-    origins = "http://localhost:3000", 
-    allowedHeaders = {"Content-Type", "x-requested-with", "origin", "Access-Control-Allow-Origin"}, 
-    methods = {RequestMethod.GET,RequestMethod.POST,RequestMethod.DELETE,RequestMethod.PUT}
-)
 public class HotelController {
     
     @Autowired
