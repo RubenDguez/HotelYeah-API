@@ -30,7 +30,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         // This will handle CORS configuration
-//        http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
+        http.cors();
+        //.configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
         
         // This will handle security configuration
         http.csrf().disable()
