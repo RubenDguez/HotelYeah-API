@@ -14,15 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.core.Authentication;
 
 @Controller
-@CrossOrigin(
-    allowCredentials = "true",
-    origins = "http://localhost:3000", 
-    allowedHeaders = {"Content-Type", "x-requested-with", "origin", "Access-Control-Allow-Origin"},  
-    methods = {RequestMethod.GET,RequestMethod.POST,RequestMethod.DELETE,RequestMethod.PUT}
-)
+@CrossOrigin("http://localhost:3000")
 public class LogOutController {
     
-    @CrossOrigin
     @PostMapping(value="/logmeout")
     public void logoutPage(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
