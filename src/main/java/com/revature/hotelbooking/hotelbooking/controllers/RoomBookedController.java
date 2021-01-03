@@ -5,10 +5,18 @@ import com.revature.hotelbooking.hotelbooking.repositories.RoomBookedRepository;
 import java.util.List;
 import com.revature.hotelbooking.hotelbooking.models.RoomBooked;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
+@CrossOrigin(
+    allowCredentials = "true",
+    origins = "http://localhost:3000", 
+    allowedHeaders = "*", 
+    methods = {RequestMethod.GET,RequestMethod.POST,RequestMethod.DELETE,RequestMethod.PUT}
+)
 public class RoomBookedController {
 
     private RoomBookedRepository roomBookedRepo;
