@@ -12,9 +12,9 @@ pipeline {
                 sh 'mvn package'
             }
         }
-        stage('deploy (find name)'){
+        stage('deploy'){
             steps{
-                sh 'ls ./target'
+                sh 'cp ./target/hotelbooking-1.0.0.war ~/apache-tomcat-8.5.60/webapps'
             }
         }
     }
