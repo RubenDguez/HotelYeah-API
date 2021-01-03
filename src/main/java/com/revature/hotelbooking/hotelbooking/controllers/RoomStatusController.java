@@ -26,7 +26,7 @@ import org.springframework.http.ResponseEntity;
 @CrossOrigin(
     allowCredentials = "true",
     origins = "http://localhost:3000", 
-    allowedHeaders = "*", 
+    allowedHeaders = {"Content-Type", "x-requested-with", "origin", "Access-Control-Allow-Origin"}, 
     methods = {RequestMethod.GET,RequestMethod.POST,RequestMethod.DELETE,RequestMethod.PUT}
 )
 public class RoomStatusController {
@@ -34,16 +34,19 @@ public class RoomStatusController {
     @Autowired
     private RoomStatusRepository roomStatusRepo;
 
+    @CrossOrigin
     @GetMapping("")
     public Page<RoomStatus> getRoomsStatus(Pageable pageable) {
         return roomStatusRepo.findAll(pageable);
     }
 
+    @CrossOrigin
     @PostMapping("")
     public RoomStatus createRoomStatus(@Valid @RequestBody RoomStatus roomStatusRequest) {
         return roomStatusRepo.save(roomStatusRequest);
     }
 
+    @CrossOrigin
     @PutMapping("/{id}")
     public RoomStatus updateRoomStatus(@PathVariable Long id, @Valid @RequestBody RoomStatus roomStatusRequest) {
         return roomStatusRepo.findById(id).map(roomStatus -> {
@@ -55,6 +58,7 @@ public class RoomStatusController {
         }).orElseThrow(() -> new ResourceNotFoundException("Room Status not found with id " + id));
     }
 
+    @CrossOrigin
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteRoomStatus(@PathVariable Long id) {
         return roomStatusRepo.findById(id).map(roomStatus -> {

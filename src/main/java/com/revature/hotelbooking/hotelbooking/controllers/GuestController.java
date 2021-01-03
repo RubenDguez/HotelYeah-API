@@ -27,7 +27,7 @@ import org.springframework.http.ResponseEntity;
 @CrossOrigin(
     allowCredentials = "true",
     origins = "http://localhost:3000", 
-    allowedHeaders = "*", 
+    allowedHeaders = {"Content-Type", "x-requested-with", "origin", "Access-Control-Allow-Origin"},  
     methods = {RequestMethod.GET,RequestMethod.POST,RequestMethod.DELETE,RequestMethod.PUT}
 )
 public class GuestController {
@@ -35,16 +35,19 @@ public class GuestController {
     @Autowired
     private GuestRepository guestRepo;
 
+    @CrossOrigin
     @GetMapping("")
     public Page<Guest> getGuests(Pageable pageable) {
         return guestRepo.findAll(pageable);
     }
 
+    @CrossOrigin
     @PostMapping("")
     public Guest createGuest(@Valid @RequestBody Guest guestRequest) {
         return guestRepo.save(guestRequest);
     }
 
+    @CrossOrigin
     @PutMapping("/{id}")
     public Guest updateGuest(@PathVariable Long id, @Valid @RequestBody Guest guestRequest) {
         return guestRepo.findById(id).map(guest -> {
@@ -65,6 +68,7 @@ public class GuestController {
         }).orElseThrow(() -> new ResourceNotFoundException("Guest not found with id " + id));
     }
 
+    @CrossOrigin
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteGuest(@PathVariable Long id) {
         return guestRepo.findById(id).map(guest -> {

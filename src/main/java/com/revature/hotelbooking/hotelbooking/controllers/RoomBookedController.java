@@ -14,13 +14,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 @CrossOrigin(
     allowCredentials = "true",
     origins = "http://localhost:3000", 
-    allowedHeaders = "*", 
+    allowedHeaders = {"Content-Type", "x-requested-with", "origin", "Access-Control-Allow-Origin"}, 
     methods = {RequestMethod.GET,RequestMethod.POST,RequestMethod.DELETE,RequestMethod.PUT}
 )
 public class RoomBookedController {
 
     private RoomBookedRepository roomBookedRepo;
 
+    @CrossOrigin
     @GetMapping("/booking/{bookingId}/roombooked")
     public List<RoomBooked> getRoomBookedByBookingId(@PathVariable Long bookingId) {
         return roomBookedRepo.findByBookingId(bookingId);

@@ -26,7 +26,7 @@ import org.springframework.http.ResponseEntity;
 @CrossOrigin(
     allowCredentials = "true",
     origins = "http://localhost:3000", 
-    allowedHeaders = "*", 
+    allowedHeaders = {"Content-Type", "x-requested-with", "origin", "Access-Control-Allow-Origin"}, 
     methods = {RequestMethod.GET,RequestMethod.POST,RequestMethod.DELETE,RequestMethod.PUT}
 )
 public class RoomTypeController {
@@ -34,16 +34,19 @@ public class RoomTypeController {
     @Autowired
     private RoomTypeRepository roomTypeRepo;
 
+    @CrossOrigin
     @GetMapping("")
     public Page<RoomType> getRoomsTypes(Pageable pageable) {
         return roomTypeRepo.findAll(pageable);
     }
 
+    @CrossOrigin
     @PostMapping("")
     public RoomType createRoomType(@Valid @RequestBody RoomType roomTypeRequest) {
         return roomTypeRepo.save(roomTypeRequest);
     }
 
+    @CrossOrigin
     @PutMapping("/{id}")
     public RoomType updateRoomType(@PathVariable Long id, @Valid @RequestBody RoomType roomTypeRequest) {
         return roomTypeRepo.findById(id).map(roomType -> {
@@ -55,6 +58,7 @@ public class RoomTypeController {
         }).orElseThrow(() -> new ResourceNotFoundException("Room Type not found with id " + id));
     }
 
+    @CrossOrigin
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteRoomType(@PathVariable Long id) {
         return roomTypeRepo.findById(id).map(roomType -> {

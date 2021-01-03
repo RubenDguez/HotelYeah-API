@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(
     allowCredentials = "true",
     origins = "http://localhost:3000", 
-    allowedHeaders = "*", 
+    allowedHeaders = {"Content-Type", "x-requested-with", "origin", "Access-Control-Allow-Origin"}, 
     methods = {RequestMethod.GET,RequestMethod.POST,RequestMethod.DELETE,RequestMethod.PUT}
 )
 public class BookingController {
@@ -47,26 +47,31 @@ public class BookingController {
     @Autowired
     private GuestRepository guestRepo;
 
+    @CrossOrigin
     @GetMapping("")
     public Page<Booking> getAllBookings(Pageable pageable) {
         return bookingRepo.findAll(pageable);
     }
 
+    @CrossOrigin
     @GetMapping("/{bookingId}")
     public Optional<Booking> getBookingById(@PathVariable Long bookingId) {
         return bookingRepo.findById(bookingId);
     }
 
+    @CrossOrigin
     @GetMapping("/hotel/{hotelId}")
     public List<Booking> getBookingByHotel(@PathVariable Long hotelId) {
         return bookingRepo.findByHotelId(hotelId);
     }
 
+    @CrossOrigin
     @GetMapping("/guest/{guestId}")
     public List<Booking> getBookingByGuest(@PathVariable Long guestId) {
         return bookingRepo.findByGuestId(guestId);
     }
 
+    @CrossOrigin
     @PostMapping("/{hotelId}/{guestId}")
     public Booking addBooking(@PathVariable Long hotelId, @PathVariable Long guestId, @Valid @RequestBody Booking booking) {
         return hotelRepo.findById(hotelId).map(hotel -> {
@@ -80,6 +85,7 @@ public class BookingController {
         }).orElseThrow(() -> new ResourceNotFoundException("Hotel not found by id " + hotelId));
     }
 
+    @CrossOrigin
     @PutMapping("/{bookingId}")
     public Booking updateBooking(@PathVariable Long bookingId, @Valid @RequestBody Booking bookingRequest) {
         return bookingRepo.findById(bookingId).map(booking -> {
@@ -90,6 +96,7 @@ public class BookingController {
         }).orElseThrow(() -> new ResourceNotFoundException("Booking not found by id " + bookingId));
     }
 
+    @CrossOrigin
     @DeleteMapping("/{bookingId}")
     public ResponseEntity<?> deleteBooking(@PathVariable Long bookingId) {
         return bookingRepo.findById(bookingId).map(booking -> {
