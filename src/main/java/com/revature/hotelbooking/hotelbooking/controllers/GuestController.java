@@ -24,7 +24,7 @@ import org.springframework.http.ResponseEntity;
 
 @RestController
 @RequestMapping(value = "/guest")
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000", "http://18.218.171.150:8081"})
 public class GuestController {
     
     @Autowired

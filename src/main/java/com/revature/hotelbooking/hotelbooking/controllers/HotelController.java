@@ -23,7 +23,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 
 @RestController
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000", "http://18.218.171.150:8081"})
 @RequestMapping("/hotel")
 public class HotelController {
     

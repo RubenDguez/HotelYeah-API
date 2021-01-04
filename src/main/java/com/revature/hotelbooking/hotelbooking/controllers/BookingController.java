@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = "/booking")
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000", "http://18.218.171.150:8081"})
 public class BookingController {
 
     @Autowired

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000", "http://18.218.171.150:8081"})
 public class RoomBookedController {
 
     private RoomBookedRepository roomBookedRepo;
